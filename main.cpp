@@ -59,11 +59,12 @@ while (Suorita) {
 
     std::cout<<"Mita haluat tehda? \n"
     <<"1. Varaa huone valitsemalla itse sen numero\n"
-    <<"2. Anna meidön valita vapaa huone puolestasi.\n"
+    <<"2. Anna meidan valita vapaa huone puolestasi.\n"
     <<"3. Poistu\n";
 
     switch(numberInput(1,2)) {
         case 1: {
+            varattu = true;
             while(varattu) {
                 std::cout << "Minka huoneen haluat varata? (Numero) ";
                  varattavaHuone = numberInput(1, vapaat);
