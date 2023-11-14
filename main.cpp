@@ -38,8 +38,8 @@ int Generoi (int alaraja, int ylaraja) {
     return aivo(moottori);
 }
 
-void tyhjenna(int x){
-    for (int i; i<x; i++){
+void tyhjenna(int x = 10){
+    for (int i = 0; i<x; i++){
         std::cout<<"\n";
     }
 }
@@ -57,7 +57,6 @@ int main() {
     std::fill_n(Huoneet,huoneidenLKM,1);
     int yoLKM {0};
     int hinta {0};
-
 while (Suorita) {
     std::cout << "Vapaiden huoneiden lukumaara: " << vapaat << "\n";
 
@@ -70,15 +69,15 @@ while (Suorita) {
         case 1: {
             varattu = true;
             while(varattu) {
-                std::cout << "Minka huoneen haluat varata? (Numero) ";
+                std::cout << "Minka huoneen haluat varata? (Numero)\n";
                  varattavaHuone = numberInput(1, vapaat);
                   if (Huoneet[varattavaHuone - 1] == 1) {
                     hinta = Generoi(80,100);
                     std::cout << "Huone on vapaa, sen hinta on " << hinta << " euroa per yo.\n";
-                    std::cout << "Monekstiko yoksi haluat varta huoneen? ";
+                    std::cout << "Monekstiko yoksi haluat varta huoneen? \n";
                     yoLKM = numberInput(1, 100);
-                    std::cout << "\nVarauksen hinta on " << yoLKM * hinta << " euroa." << "\n";
-                      tyhjenna(15);
+                    std::cout << "Varauksen hinta on " << yoLKM * hinta << " euroa." << "\n";
+                      tyhjenna();
                     vapaat = vapaat - 1;
                     Huoneet[varattavaHuone - 1] = 0;
                     varattu = false;
@@ -99,11 +98,10 @@ while (Suorita) {
             hinta = Generoi(80, 100);
             std::cout << "Varattavan huoneen numero on " << varattavaHuone
                       << " Ja sen hinta on " << hinta << " euroa.\n"
-                      << "Moneksiko yoksi haluat varata huoneen? ";
+                      << "Moneksiko yoksi haluat varata huoneen?\n";
             yoLKM = numberInput(1, 100);
-            std::cout << "\nVarauksen hinta on " << yoLKM * hinta << " euroa." << "\n";
-            tyhjenna(15);
-
+            std::cout << "Varauksen hinta on " << yoLKM * hinta << " euroa." << "\n";
+            tyhjenna(10);
             vapaat = vapaat - 1;
             Huoneet[varattavaHuone - 1] = 0;
             break;
