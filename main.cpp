@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <random>
 
 
 
@@ -25,11 +26,25 @@ int numberInput(int low, int high){
     }
 }
 
+int Generoi (int alaraja, int ylaraja) {
+// Käytetään satunnaislukugeneraattorin "Siementämiseen"
+    std::random_device rd;
+
+// moottori joka tuottaa satunnaislukuja
+    std::default_random_engine moottori(rd());
+
+//Jakauma, joka tuottaa luvut alarajan ja ylärajan väliltä yhtä suurella todennäköisyydellä
+    std::uniform_int_distribution aivo(alaraja, ylaraja); // vaatii c++20
+
+    return aivo(moottori);
+}
+
+
 
 
 int main() {
     bool Suorita = true;
-    const int huoneidenLKM {30};
+    const int huoneidenLKM {Generoi(30,70)};
     int vapaat = huoneidenLKM;
     int Huoneet [huoneidenLKM];
     std::fill_n(Huoneet,huoneidenLKM,1);
