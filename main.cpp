@@ -34,8 +34,7 @@ int Generoi (int alaraja, int ylaraja) {
     std::default_random_engine moottori(rd());
 
 //Jakauma, joka tuottaa luvut alarajan ja ylärajan väliltä yhtä suurella todennäköisyydellä
-    std::uniform_int_distribution aivo(alaraja, ylaraja); // vaatii c++20
-
+    std::uniform_int_distribution<> aivo (alaraja,ylaraja);
     return aivo(moottori);
 }
 
@@ -43,31 +42,37 @@ int Generoi (int alaraja, int ylaraja) {
 
 
 int main() {
+    const int huoneetMinimi = 40;
+    const int huoneetMaksimi = 70;
     bool Suorita = true;
-    const int huoneidenLKM {Generoi(30,70)};
+    bool varattu = true;
+    const int huoneidenLKM {Generoi(huoneetMinimi,huoneetMaksimi)};
     int vapaat = huoneidenLKM;
     int Huoneet [huoneidenLKM];
+    int varattavaHuone;
     std::fill_n(Huoneet,huoneidenLKM,1);
     int yoLKM {0};
+    int hinta {0};
 
 while (Suorita) {
     std::cout << "Vapaiden huoneiden lukumaara: " << vapaat << "\n";
 
     std::cout<<"Mita haluat tehda? \n"
-    <<"1. Varaa huone\n"
-    <<"2. Poistu\n";
+    <<"1. Varaa huone valitsemalla itse sen numero\n"
+    <<"2. Anna meidön valita vapaa huone puolestasi.\n"
+    <<"3. Poistu\n";
 
     switch(numberInput(1,2)) {
         case 1: {
-            bool varattu = true;
             while(varattu) {
                 std::cout << "Minka huoneen haluat varata? (Numero) ";
-                int varattavaHuone = numberInput(1, 30);
-                if (Huoneet[varattavaHuone - 1] == 1) {
-                    std::cout << "Huone on vapaa, sen hinta on 100e per yo.\n";
+                 varattavaHuone = numberInput(1, vapaat);
+                  if (Huoneet[varattavaHuone - 1] == 1) {
+                    hinta = Generoi(80,100);
+                    std::cout << "Huone on vapaa, sen hinta on " << hinta << " euroa per yo.\n";
                     std::cout << "Monekstiko yoksi haluat varta huoneen? ";
                     yoLKM = numberInput(1, 100);
-                    std::cout << "\nVarauksen hinta on " << yoLKM * 100 << " euroa." << "\n";
+                    std::cout << "\nVarauksen hinta on " << yoLKM * hinta << " euroa." << "\n";
 
                     vapaat = vapaat - 1;
                     Huoneet[varattavaHuone - 1] = 0;
@@ -77,11 +82,28 @@ while (Suorita) {
                 }
 
             }
+            break;
+        }
+        case 2: {
+            while (varattu) {
+                varattavaHuone = Generoi(1, vapaat);
+                if (Huoneet[varattavaHuone - 1] == 1) {
+                    varattu = false;
+                }
+            }
+            hinta = Generoi(80, 100);
+            std::cout << "Varattavan huoneen numero on " << varattavaHuone
+                      << " Ja sen hinta on " << hinta << " euroa.\n"
+                      << "Moneksiko yoksi haluat varata huoneen? ";
+            yoLKM = numberInput(1, 100);
+            std::cout << "\nVarauksen hinta on " << yoLKM * hinta << " euroa." << "\n";
 
+            vapaat = vapaat - 1;
+            Huoneet[varattavaHuone - 1] = 0;
             break;
         }
 
-        case 2: {
+        case 3: {
             Suorita = false;
             break;
         }
