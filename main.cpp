@@ -38,7 +38,11 @@ int Generoi (int alaraja, int ylaraja) {
     return aivo(moottori);
 }
 
-
+void tyhjenna(int x){
+    for (int i; i<x; i++){
+        std::cout<<"\n";
+    }
+}
 
 
 int main() {
@@ -74,7 +78,7 @@ while (Suorita) {
                     std::cout << "Monekstiko yoksi haluat varta huoneen? ";
                     yoLKM = numberInput(1, 100);
                     std::cout << "\nVarauksen hinta on " << yoLKM * hinta << " euroa." << "\n";
-
+                      tyhjenna(15);
                     vapaat = vapaat - 1;
                     Huoneet[varattavaHuone - 1] = 0;
                     varattu = false;
@@ -98,6 +102,7 @@ while (Suorita) {
                       << "Moneksiko yoksi haluat varata huoneen? ";
             yoLKM = numberInput(1, 100);
             std::cout << "\nVarauksen hinta on " << yoLKM * hinta << " euroa." << "\n";
+            tyhjenna(15);
 
             vapaat = vapaat - 1;
             Huoneet[varattavaHuone - 1] = 0;
